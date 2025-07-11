@@ -5,6 +5,10 @@
 ### - User registration with form validation
 ### - Friendly error handling and UI feedback
 
+<img width="2878" height="1550" alt="Image" src="https://github.com/user-attachments/assets/fd3bbd3a-1048-494d-8018-c7e542390f59" />
+
+<img width="2878" height="1560" alt="Image" src="https://github.com/user-attachments/assets/44fd2649-f768-403f-82bd-6338186257b2" />
+
 
 
 
