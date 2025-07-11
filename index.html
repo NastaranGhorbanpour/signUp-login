@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/style/output.css">
+    <link rel="stylesheet" href="assets/font/css/fontello.css">
+</head>
+
+<body class="bg-[#CCCCCC] relative w-full h-[100vh] flex flex-wrap items-center justify-center">
+
+    <section class="w-8/10  bg-[#3B3B3B] flex justify-between relative">
+        <div class="w-1/2 h-full px-10 py-20 text-white ">
+            <h2>Don't have an account?</h2>
+            <p class="mt-5 mb-6">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art
+                fap.</p>
+            <button id="moveLeft"
+                class="border-1 border-white btn hover:bg-[#CCCCCC] hover:text-[#3B3B3B] duration-300">SING UP</button>
+        </div>
+        <div class="w-1/2 h-full p-10 py-20 text-white ">
+            <h2>Have an account?</h2>
+            <p class="mt-5 mb-6">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art
+                fap.</p>
+            <button id="moveRight"
+                class="border-1 border-white btn hover:bg-[#CCCCCC] hover:text-[#3B3B3B] duration-300">LOGIN</button>
+        </div>
+
+        <section id="form"
+            class=" min-h-[470px] *:px-10 py-15 absolute w-1/2 rounded-sm shadow-2xl left-[25px] top-[20px] md:-top-[60px] bg-white ">
+            <div id="signUp" class="turn">
+                <h3 class="w-full  my-5 text-green-500 text-lg  "></h3>
+
+                <h2 class="w-full text-[#E7716D] text-3xl uppercase">sign up</h2>
+                <div class="w-full relative">
+                    <input class="inp" type="text" placeholder="Full Name" required>
+                    <span class="alert absolute -bottom-2 left-0"></span>
+                </div>
+
+                <div class="w-full relative">
+                    <input class="inp" type="text" placeholder="Email" required>
+                    <span class="alert absolute -bottom-2 left-0"></span>
+                </div>
+
+                <div class="w-full relative">
+                    <input class="inp" type="text" placeholder="Password" required>
+                    <span class="alert absolute -bottom-2 left-0"></span>
+                </div>
+
+
+
+
+                <button id="signUpBtn" class="btn bg-[#E7716D] hover:bg-[#ae4c4c] mt-5 ">sign up</button>
+            </div>
+
+            <div id="login" class="hidden">
+                <h3 class="w-full  my-5 text-green-500 text-lg  "></h3>
+
+                <h2 class="w-full text-[#E7716D] text-3xl uppercase mb-5">LOGIN</h2>
+
+                <div class="w-full relative">
+                    <input class="inp" type="text" placeholder="Email" required>
+                    <span class="alert absolute -bottom-2 left-0"></span>
+                </div>
+
+                <div class="w-full relative">
+                    <input class="inp" type="text" placeholder="Password" required>
+                    <span class="alert absolute -bottom-7 md:-bottom-3 left-0"></span>
+                </div>
+
+
+
+                <button id="loginBtn" class="btn bg-[#E7716D] hover:bg-[#ae4c4c] mt-13 ">login</button>
+            </div>
+        </section>
+    </section>
+
+
+
+    <figure class="group z-50 w-[150px] h-[150px] absolute bottom-[40px] left-[25px] ">
+
+
+        <img class="w-full h-full object-cover absolute top-0 left-0 firstAnime z-50" src="assets/img/me.JPG" alt="">
+
+        <figcaption class="font-[caveat] absolute -bottom-[25px] left-0 text-[18px] text-[rgb(148, 87, 67)]">Nastaran
+            Ghorbanpour</figcaption>
+
+        <a href="https://github.com/NastaranGhorbanpour"
+            class="icon-github-circled decoration-0 w-[15px] h-[15px] absolute right-[40%] text-[20px] -z-10 duration-1000 text-[rgb(85, 57, 21)] hover:text-[rgb(148, 87, 67)] bottom-[20px] group-hover:-right-[20%] group-hover:z-50"></a>
+        <a href="https://www.linkedin.com/in/nastaran-ghorbanpour-027a7b349/"
+            class="icon-linkedin decoration-0 w-[15px] h-[15px] absolute right-[40%] text-[20px] -z-10 duration-1000 text-[rgb(85, 57, 21)] hover:text-[rgb(148, 87, 67)] bottom-[70px] group-hover:-right-[20%] group-hover:z-50"></a>
+        <a href="https://www.instagram.com/nestacode.lab/"
+            class="icon-instagram decoration-0 w-[15px] h-[15px] absolute right-[40%] text-[20px] -z-10 duration-1000 text-[rgb(85, 57, 21)] hover:text-[rgb(148, 87, 67)] bottom-[120px] group-hover:-right-[20%] group-hover:z-50"></a>
+    </figure>
+
+</body>
+<script>
+    const myUrl = 'https://686a987ee559eba9087069db.mockapi.io/login'
+
+    const moveLeft = document.getElementById('moveLeft')
+    const moveRight = document.getElementById('moveRight')
+
+    const form = document.getElementById('form')
+    const loginBtn = document.getElementById('loginBtn')
+    const signUpBtn = document.getElementById('signUpBtn')
+
+    const inpSignUp = document.querySelectorAll('#signUp>div>input')
+    const inpLogin = document.querySelectorAll('#login>div>input')
+
+    const respond = document.querySelectorAll('#form>div>h3')
+
+    const info = {
+        fullName: '',
+        email: '',
+        password: ''
+
+    }
+    
+
+
+    moveLeft.addEventListener('click', () => {
+        form.classList.remove('right-[25px]')
+        form.classList.add('left-[25px]')
+        form.children[0].classList.replace('hidden', 'turn')
+        form.children[1].classList.replace('turn', 'hidden')
+        loginReset()
+    })
+    moveRight.addEventListener('click', () => {
+        form.classList.remove('left-[25px]')
+        form.classList.add('right-[25px]')
+        form.children[0].classList.replace('turn', 'hidden')
+        form.children[1].classList.replace('hidden', 'turn')
+        singUpReset()
+    })
+
+    signUpBtn.addEventListener('click', () => {
+        let full = true
+        inpSignUp.forEach((val) => {
+            if (val.value == '') {
+                val.style.borderBottom = '1px solid red'
+                val.style.color = 'red'
+                val.nextElementSibling.innerHTML = 'Pleas Fill Out This Field'
+                full = false
+                console.log('not full');
+
+            } else {
+                val.style.borderBottom = '1px solid #7b7979'
+                val.style.color = '#7b7979'
+                val.nextElementSibling.innerHTML = ''
+
+            }
+
+        })
+        if (full) {
+
+            info.fullName = inpSignUp[0].value
+            validateEmailFormat()
+            checkPasswordRules()
+
+
+            let counter = 0
+            Object.keys(info).map((val) => {
+                if (info[val] == '') {
+                    counter++
+                }
+
+            })
+
+            if (counter == 0) {
+                let checked = checkEmailExists()
+
+                if (checked = true) {
+                    fetch(myUrl, {
+                        method: 'POST',
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify(info)
+                    }).then(res => {
+                        if (res.ok) return res.json();
+                        throw new Error('err')
+
+                    }).then(task => {
+                        respond[0].innerHTML = 'Your account has been created successfully.'
+
+
+                    }).catch((error) => console.log('an error eccured!')
+                    )
+                } else {
+                    alert('this email alredy exict')
+                }
+
+            }
+
+
+
+        }
+    })
+
+    function validateEmailFormat() {
+        const emailRejex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/;
+
+        if (!emailRejex.test(inpSignUp[1].value)) {
+            inpSignUp[1].nextElementSibling.innerHTML = 'Pleas Enter The Correct Email Format'
+        } else {
+            inpSignUp[1].nextElementSibling.innerHTML = ''
+            info.email = inpSignUp[1].value
+        }
+    }
+
+    function checkPasswordRules() {
+        const passRejex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+
+        if (!passRejex.test(inpSignUp[2].value)) {
+            let pass = inpSignUp[2].value
+            let span = inpSignUp[2].nextElementSibling
+
+
+            if (pass.length < 8) {
+                span.innerHTML = 'At least 8 characters long'
+            } else if (!/[A-Z]/.test(pass)) {
+                span.innerHTML = 'At least one uppercase letter (A–Z)'
+            } else if (!/[a-z]/.test(pass)) {
+                span.innerHTML = 'At least one lowercase letter (a–z)'
+            } else if (!/\d/.test(pass)) {
+                span.innerHTML = 'At least one number (0–9)'
+            }
+
+
+
+        } else {
+            inpSignUp[2].nextElementSibling.innerHTML = ''
+            info.password = inpSignUp[2].value
+
+        }
+    }
+
+    function checkEmailExists() {
+        let status = 0
+        fetch(myUrl)
+            .then(res => {
+                if (res.ok) return res.json()
+                throw new Error('err')
+            })
+            .then(data => {
+                data.map((val) => {
+                    if (val.email == info.email) {
+                        status++
+                    }
+                })
+
+                if (status == 0) {
+                    return true
+                } else {
+                    return false
+                }
+
+
+            })
+            .catch((err) => console.log(err)
+            )
+    }
+
+
+    loginBtn.addEventListener('click', () => {
+        let full = true
+
+        inpLogin.forEach((val) => {
+            if (val.value == '') {
+                val.style.borderBottom = '1px solid red'
+                val.style.color = 'red'
+                val.nextElementSibling.innerHTML = 'Pleas Fill Out This Field'
+                full = false
+            } else {
+                val.style.borderBottom = '1px solid #7b7979'
+                val.style.color = '#7b7979'
+                val.nextElementSibling.innerHTML = ''
+
+            }
+        })
+
+        if (full) {
+            fetch(myUrl)
+                .then(res => {
+                    if (res.ok) return res.json()
+                    throw new Error('err')
+                })
+                .then(data => {
+                    let mailcheck = true
+                    data.map((val) => {
+
+
+                        if (val.email == inpLogin[0].value) {
+                            mailcheck = false
+                            if (val.password == inpLogin[1].value) {
+                                respond[1].innerHTML = "Welcome back!You've successfully logged in."
+                            } else {
+                                inpLogin[1].nextElementSibling.innerHTML = 'Your email and password do not match'
+
+                            }
+
+                        }
+
+
+                    })
+
+                    if (mailcheck) {
+
+                        inpLogin[0].nextElementSibling.innerHTML = 'This email is not registered in our system'
+
+
+                    }
+                })
+                .catch((err) => console.log(err)
+                )
+        }
+    })
+
+    function loginReset(){
+        respond[1].innerHTML=''
+        inpLogin[0].value=null
+        inpLogin[0].nextElementSibling.innerHTML=null
+        inpLogin[1].value=null
+        inpLogin[1].nextElementSibling.innerHTML=null
+
+    }
+
+    function singUpReset(){
+        respond[0].innerHTML=''
+        inpSignUp[0].value = null
+        inpSignUp[0].nextElementSibling.innerHTML = ''
+        inpSignUp[1].value = null
+        inpSignUp[1].nextElementSibling.innerHTML = ''
+        inpSignUp[2].value = null
+        inpSignUp[2].nextElementSibling.innerHTML = ''
+    }
+
+
+</script>
+
+</html>

@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@layer base{
+    h1,h2{
+        font-family: mon-light;
+        font-size: 26px;
+    }
+    p{
+        font-family: mon-light;
+        font-size: 15px;
+    }
+    button{
+        font-family: mon-regular;
+        font-size: 15px;
+        
+    }
+} 
+@layer components{
+    .inp{
+        width: 100%;
+        border-bottom: 1px solid #7b7979;
+        color: #7b7979;
+        margin-block: 25px;
+        padding: 5px;
+        outline: none;
+        
+    }
+    .alert{
+        color: red;
+        width: 100%;
+        text-align: left;
+        margin-inline: 10px;
+        font-size: 12px;
+        
+    }
+    .btn{
+        padding-block: 8px;
+        padding-inline: 30px;
+        border-radius: 5px;
+        transition: 0.4s;
+        color: white;
+    }
+
+} 
+@layer utilities{
+    .turn{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: end;
+
+    }
+}
+
+@layer theme{
+    .firstAnime{
+        animation: bdr1 3s ease-out infinite alternate;
+    }
+    .secondAnime{
+        animation: bdr2 3s ease-out alternate infinite;
+    }
+}
+
+@keyframes bdr1{
+    0%{border-radius: 58% 34% 42% 37% / 52% 30% 68% 44%  ;}
+    50%{border-radius: 34% 54% 30% 59% / 75% 59% 36% 33% ;}
+    100%{border-radius: 61% 43% 75% 27% / 87% 33% 46% 20%  ;}
+}
+@keyframes bdr2{
+    0%{border-radius: 61% 43% 75% 27% / 87% 33% 46% 20%  ;}
+    50%{border-radius: 58% 34% 42% 37% / 52% 30% 68% 44%  ;}
+    100%{border-radius: 34% 54% 30% 59% / 75% 59% 36% 33%   ;}
+}
+
+
+@font-face {
+    font-family: caveat;
+    src: url(../font/Caveat-Bold.ttf);
+}
+@font-face {
+    font-family: mon-light;
+    src: url(../font/Montserrat-Light.ttf);
+}
+@font-face {
+    font-family: mon-medium;
+    src: url(../font/Montserrat-Medium.ttf);
+}
+@font-face {
+    font-family: mon-regular;
+    src: url(../font/Montserrat-Regular.ttf);
+}
