@@ -1,5 +1,4 @@
 # Auth System
-# 
 ## A simple authentication system that includes user signup and login functionality.
 ### - Responsive
 ### - User registration with form validation
