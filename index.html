@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="assets/style/output.css">
+    <link rel="stylesheet" href="assets/font/footer-icons/css/fontello.css">
     <link rel="stylesheet" href="assets/font/css/fontello.css">
 </head>
 
-<body class="bg-[#CCCCCC] relative w-full h-[100vh] flex flex-wrap items-center justify-center">
+<body class="bg-[#CCCCCC] relative w-full min-h-[100vh] flex flex-wrap items-center justify-center">
 
-    <section class="w-8/10  bg-[#3B3B3B] flex justify-between relative">
+    <section id="regForm" class="w-8/10  bg-[#3B3B3B] flex justify-between relative">
         <div class="w-1/2 h-full px-10 py-20 text-white ">
             <h2>Don't have an account?</h2>
             <p class="mt-5 mb-6">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art
@@ -69,14 +70,43 @@
                     <span class="alert absolute -bottom-7 md:-bottom-3 left-0"></span>
                 </div>
 
+                <span class="text-[#E7716D] cursor-pointer  text-xl w-full flex flex-wrap justify-end mt-3"
+                    href="">Admin Page</span>
 
 
-                <button id="loginBtn" class="btn bg-[#E7716D] hover:bg-[#ae4c4c] mt-13 ">login</button>
+
+                <button id="loginBtn" class="btn bg-[#E7716D] hover:bg-[#ae4c4c] mt-10 ">login</button>
             </div>
         </section>
     </section>
 
+    <section id="infoForm" class="w-9/10 bg-[#3B3B3B] hidden flex-wrap justify-center items-center p-10">
+        <section class="relative w-full bg-white flex flex-wrap justify-center py-5 ">
+            <section class="formInfo *:text-[#E7716D] *:text-xl">
+                <span>ID</span>
+                <span>Name</span>
+                <span>Email</span>
+                <span>Password</span>
+                <span>Actions</span>
+            </section>
 
+            <section id="updateBox"
+                class=" w-1/2 p-5 hidden absolute top-1/3 left-1/4 flex-wrap justify-center rounded-lg shadow-2xl shadow-black bg-[#3B3B3B]  *:rounded-sm ">
+                <h2 class="text-white ">Update List</h2>
+                <input class="editInp" type="text">
+                <input class="editInp" type="text">
+                <input class="editInp" type="text">
+                <button onclick="sendEdit()"
+                    class="btn border-[#7b7979] border-1 hover:bg-white hover:text-black duration-300">Update</button>
+            </section>
+
+            
+
+        </section>
+        <button class="btn mt-10 border-1 border-[btn] p-3 hover:bg-white hover:text-black ">Back to login page</button>
+
+
+    </section>
 
     <figure class="group z-50 w-[150px] h-[150px] absolute bottom-[40px] left-[25px] ">
 
@@ -107,8 +137,19 @@
 
     const inpSignUp = document.querySelectorAll('#signUp>div>input')
     const inpLogin = document.querySelectorAll('#login>div>input')
+    const adminPage = document.querySelector('#login>span')
 
     const respond = document.querySelectorAll('#form>div>h3')
+
+    const adminAccess = document.getElementById('adminAccess')
+    const regForm = document.getElementById('regForm')
+    const infoForm = document.getElementById('infoForm')
+    const innerInfoForm = document.querySelector('#infoForm>section')
+    const backToLogin = document.querySelector('#infoForm>button')
+
+    const updateBox = document.getElementById('updateBox')
+    const updateInp = document.querySelectorAll('#updateBox>input')
+
 
     const info = {
         fullName: '',
@@ -116,7 +157,6 @@
         password: ''
 
     }
-    
 
 
     moveLeft.addEventListener('click', () => {
@@ -260,9 +300,21 @@
             )
     }
 
+    let user = ''
+
+    adminPage.addEventListener('click', () => {
+        inpLogin[0].value = 'nastaran@gmail.com'
+        inpLogin[1].value = 'Nas12345'
+    })
+
+    backToLogin.addEventListener('click' , ()=>{
+        regForm.style.display = 'flex'
+        infoForm.style.display = 'none'
+    })
 
     loginBtn.addEventListener('click', () => {
         let full = true
+
 
         inpLogin.forEach((val) => {
             if (val.value == '') {
@@ -287,45 +339,179 @@
                 .then(data => {
                     let mailcheck = true
                     data.map((val) => {
-
-
                         if (val.email == inpLogin[0].value) {
                             mailcheck = false
+
                             if (val.password == inpLogin[1].value) {
-                                respond[1].innerHTML = "Welcome back!You've successfully logged in."
+
+                                regForm.style.display = 'none'
+                                infoForm.style.display = 'flex'
+                                if (val.id == 1) {
+                                    user = 'admin'
+                                    setAdminData()
+                                } else {
+                                    setUserData(val)
+                                }
                             } else {
                                 inpLogin[1].nextElementSibling.innerHTML = 'Your email and password do not match'
-
                             }
-
-                        }
-
-
-                    })
+                        }})
 
                     if (mailcheck) {
-
                         inpLogin[0].nextElementSibling.innerHTML = 'This email is not registered in our system'
-
-
                     }
                 })
                 .catch((err) => console.log(err)
-                )
-        }
-    })
+                )}})
 
-    function loginReset(){
-        respond[1].innerHTML=''
-        inpLogin[0].value=null
-        inpLogin[0].nextElementSibling.innerHTML=null
-        inpLogin[1].value=null
-        inpLogin[1].nextElementSibling.innerHTML=null
+    function setUserData(val) {
+        let newDiv = document.createElement('div')
+        newDiv.innerHTML = `
+            <span>${val.id}</span>
+            <span>${val.fullName}</span>
+            <span>${val.email}</span>
+            <span>${val.password}</span>
+            <span><i onclick='myDel(${val.id})' class="icon-trash icons"></i><i onclick='myUpdate(${val.id})' class="icon-pencil icons"></i></span>
+            `
+        newDiv.classList.add('formInfo')
+        innerInfoForm.appendChild(newDiv)
+    }
+
+    function setAdminData() {
+        fetch(myUrl, {
+            method: 'GET',
+            headers: { 'content-type': 'application/json' },
+        })
+            .then(res => {
+                if (res.ok) return res.json()
+                throw new Error('err')
+            })
+            .then(data => {
+                data.map((val) => {
+                    let newDiv = document.createElement('div')
+                    if(val.id == 1){
+                        newDiv.innerHTML = `
+                        <span>${val.id}</span>
+                        <span>${val.fullName}</span>
+                        <span>${val.email}</span>
+                        <span>${val.password}</span>
+                        <span>ADMIN</span>
+                        `
+                    }else{
+                        newDiv.innerHTML = `
+                        <span>${val.id}</span>
+                        <span>${val.fullName}</span>
+                        <span>${val.email}</span>
+                        <span>${val.password}</span>
+                        <span><i onclick='myDel(${val.id})' class="icon-trash icons"></i><i onclick='myUpdate(${val.id})' class="icon-pencil icons"></i></span>
+
+                        `
+
+                    }
+                    
+                    newDiv.classList.add('formInfo')
+                    innerInfoForm.appendChild(newDiv)
+
+                })
+
+            })
+            .catch((err) => console.log(err)
+            )
 
     }
 
-    function singUpReset(){
-        respond[0].innerHTML=''
+    function myUpdate(id) {
+        
+        updateBox.style.display = 'flex'
+        updateBox.setAttribute('data-i', id)
+
+        fetch(myUrl + '/' + id)
+            .then(res => {
+                if (res.ok) return res.json()
+                throw new Error('err')
+            })
+            .then(data => {
+                updateInp[0].value = data.fullName
+                updateInp[1].value = data.email
+                updateInp[2].value = data.password
+            })
+    }
+
+    function sendEdit() {
+        let id = updateBox.getAttribute('data-i')
+        updateBox.style.visibility = 'hidden'
+
+        const temp = {
+            fullName: updateInp[0].value,
+            email: updateInp[1].value,
+            password: updateInp[2].value
+        }
+
+        fetch(myUrl + '/' + id, {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(temp)
+        }).then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error('err')
+        }).then(task => {
+            alert('done!')
+            const divs = document.querySelectorAll('#infoForm>section>div')
+            divs.forEach((val) => {
+                val.remove()
+            })
+
+            if (user == 'admin') {
+                setAdminData()
+            } else {
+                fetch(myUrl + '/' + id)
+                    .then(res => res.json())
+                    .then(data => {
+                        setUserData(data)
+                    })}
+        }).catch(error => {
+            console.log(err);
+        })
+    }
+
+    function myDel(id) {
+        if (confirm('Are you sure?')) {
+            fetch(myUrl + '/' + id, {
+                method: 'DELETE',
+            }).then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+            }).then(task => {
+                alert('user by id : ' + id + ' was deleted!')
+                if (user == 'admin') {
+                    const divs = document.querySelectorAll('#infoForm>section>div')
+                    divs.forEach((val) => {
+                        val.remove()
+                    })
+                    setAdminData()
+                } else {
+                    regForm.style.display = 'flex'
+                    infoForm.style.display = 'none'
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        }
+    }
+
+    function loginReset() {
+        respond[1].innerHTML = ''
+        inpLogin[0].value = null
+        inpLogin[0].nextElementSibling.innerHTML = null
+        inpLogin[1].value = null
+        inpLogin[1].nextElementSibling.innerHTML = null
+    }
+
+    function singUpReset() {
+        respond[0].innerHTML = ''
         inpSignUp[0].value = null
         inpSignUp[0].nextElementSibling.innerHTML = ''
         inpSignUp[1].value = null
